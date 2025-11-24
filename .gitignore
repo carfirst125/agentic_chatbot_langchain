@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+
+# App requirements
+/app/requirements*.txt
+
+# JSON
+*.json
+
+# Terraform local state / plugins
+**/.terraform/
+
+# Vectorstore index
+app/vectorstore/docs_index_cosine/*.pkl
+
+
+
