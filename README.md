@@ -120,24 +120,27 @@ agentic_chatbot_app
 ```
 
 Code upload to repo includes three main things:
-
+```
 - App code (app your deved above + requirements.txt)
 - docker (Dockerfile to build image)
 - pipelines (here I organize 3 pipelines, you can use just 1 or any depend on)  
 	  + CICD1 (pipelines-stage1-infras.yml): creating system resource with terraform 
 	  + CICD2 (pipelines-stage2-docker-image.yml): build docker image + up to ACR
 	  + CICD3 (pipelines-stage3-container.yml): pull docker image, run container ACA by terraform 
+```
 
-- Upload to Repo
+Upload to Repo
 
 
 #########################################
 ## Task 2: Create CICD Pipelines
 
-In Project DevOpt winđơ in az, create pipelines and indicate to file azure-pipelines...yml in the repo
-For example, you need create 3 pipelines here.
-Each pipelines, you can add ENV VAR in UI 
+In Project DevOpt UI, create pipelines by relevant indicating azure-pipelines.yml file in the repo.
 
+In this project, you need to create 3 pipelines.
+
+In each pipelines, you can add Environment Variables through pipelines.
+```
 IMPORTANT NOTE:
 Pipelines need HW to run:
    1-Microsoft Host pool (Free but 60 mins timeout) 
@@ -148,30 +151,33 @@ Potential Issues:
 Khi chạy pipelines trên host này thì toàn bộ terraform daemon hay docker daemon phải có trên máy đó, kết nối internet đẩy đủ và Az DevOpt có quyền truy cập tới host.
 
 Khi chạy có thể cập nhật ubuntu hoặc download phần mềm, cài package --> có thể bị lỗi lq tới CDN ở các vùng bị chặn bởi VN hay authen request từ VN --> cần đổi url default sang url nào ok.
-
+```
 
 #########################################
 ## Task 3: Test pipelines
 #### Sub-task 01: Run/Debug/Fix/Rerun (CICD1) azure-pipelines-stage1-infras.yml
+
 Build infras --> DONE
 
 #### Sub-task 02: Run/Debug/Fix/Rerun (CICD2) pipelines-stage2-docker-image.yml
+
 CICD2 --> DONE
-+ az login (wsl terminal)
-`az login --tenant 42d1f2bd-0d00-4740-b3ae-59320171ec2b --use-device-code`
+
+- az login (wsl terminal)
+`az login --tenant YOUR_TENTANT_ID --use-device-code`
 Then copy link and past provided OTP code --> OK
 
-+ Check image in ACR repository
-	 1- Login
-	+ az acr login --name acrngothanhnhan125
-	 2- Show tags of images
-	+ az acr repository show-tags --name acrngothanhnhan125 --repository agentic_chatbot_api --output tsv
-	 3- Pull Image to local	
-	+ docker pull acrngothanhnhan125.azurecr.io/agentic_chatbot_api:latest
-	 4- Get images information (size) 
-	+ docker images acrngothanhnhan125.azurecr.io/agentic_chatbot_api
+- Check image in ACR repository
+	- 1- Login
+	`az acr login --name acrngothanhnhan125`
+	- 2- Show tags of images
+	`az acr repository show-tags --name acrngothanhnhan125 --repository agentic_chatbot_api --output tsv`
+	- 3- Pull Image to local	
+	`docker pull acrngothanhnhan125.azurecr.io/agentic_chatbot_api:latest`
+	- 4- Get images information (size) 
+	`docker images acrngothanhnhan125.azurecr.io/agentic_chatbot_api`
 
-Check image in ACR at local:
+- Check image in ACR at local:
 `sh run_docker_image_acr.sh` --> run docker image pulled to local machine to test
 `python call_chatbot_api.py` --> to check Query API --> DONE
 
