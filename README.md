@@ -50,18 +50,25 @@
 ## Task 3: Test build docker image + container
 
 ### Sub-task 01: Retest requirements.txt --> create python env + run app for test
-Note: SHOULD `pip install  -r requirements.txt --no-deps` 
-      **--no-deps** : support you passed mismatched version lib when installing.    
-Run uvicorn deploy api
-Run call api
+
+- Note: SHOULD 
+
+`pip install  -r requirements.txt --no-deps` 
+
+*--no-deps* : support you passed mismatched version lib when installing.    
+
+- Run uvicorn deploy api
+- Run call api
 
 ### Sub-task 02: Test Build docker in local with same platform like in working in ACA
+
 Prepare 3 bash/shell scripts:
-1- [.sh] Command to Delete old image with \<none\> in name
-2- [.sh] Command to Build docker image with Dockerfile (platform+requirements.txt)
+
+- 1- [.sh] Command to Delete old image with \<none\> in name
+- 2- [.sh] Command to Build docker image with Dockerfile (platform+requirements.txt)
      Bạn có thể gặp lỗi (pylib không tương tích với python version hay platform, thiếu thư viện hay thư viện khác đôi chút với trên win)
-3- [.sh] Command to Run image create container (because image stored locally --> not need to pull images)
-     Potential Error: 
+- 3- [.sh] Command to Run image create container (because image stored locally --> not need to pull images)
+     ``` Potential Error: 
 	     container được built và chạy (run `docker ps -a`  sẽ thấy container với up to N seconds)
 	     nhưng bạn gọi API lại ko được, bị lỗi
 	 Reason: 
@@ -70,15 +77,16 @@ Prepare 3 bash/shell scripts:
 	      Print container log: `docker logs agentic_chatbot_api`
 	      Open container terminal to code: 
 		      + Run 
-			      `docker exec -it agentic_chatbot_api bash` --> Container Terminal >>
+                `bash docker exec -it agentic_chatbot_api bash --> Container Terminal >>
 		      + Bạn có thể install something in container 
-			      `apt update && apt install -y curl`
+			    `apt update && apt install -y curl`
 		      + Sau đó, check curl bên trong container: 
-			      `curl http://localhost:8001`
+			    `curl http://localhost:8001`
 		      + Hay kiểm tra chạy lại lệnh uvicorn bên trong container:
 			      `uvicorn app.chatbot:app --host 0.0.0.0 --port 8001`
 	         
-            Dùng cách trên để debug, tôi xuất log và thấy app tôi đang chạy embedding vector cho tài liệu. Lý do: đường dẫn tới file .faiss có sẵn bị sai. Tôi đã sửa lại đường dẫn, build lại docker image, run container lại và giờ tôi có thể gọi API.\
+        Dùng cách trên để debug, tôi xuất log và thấy app tôi đang chạy embedding vector cho tài liệu. Lý do: đường dẫn tới file .faiss có sẵn bị sai. Tôi đã sửa lại đường dẫn, build lại docker image, run container lại và giờ tôi có thể gọi API.\
+    ```
             
    4- Bạn run 3 shell script.sh trên, khi run xong script thứ 3 deploy container thì bạn chạy
    `docker ps -a` --> show all containers is running and container "up to 1 minutes ..." is running one.
