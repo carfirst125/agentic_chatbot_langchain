@@ -192,26 +192,29 @@ Then copy link and past provided OTP code --> OK
 `python call_chatbot_api.py` --> to check Query API --> DONE
 ```
 
-Potential Issue:
+Potential Issues:
 ```
 - build python venv get mismatch in python version --> add --no-deps
 - version not correct with platform (should test in local early)
 - authentication when push image to ACR, correct in .yml
 ```
+
 #### Sub-task 03: Run/Debug/Fix/Rerun (CICD3) azure-pipelines-stage3-container.yml
 
 Deploy container for chatbot --> DONE
 
 Potential Issues:
+```
 - expose port 8000 --> local
 - expose to public port 443 --> public. This port default, not need configuring
 - Timeout issue relating to ingress/egress
-
+```
 
 #########################################
 ## Task 04: Test Container API call
 
 Get container expose API url
+
 Run url API request --> get response --> OK
 
 # END
