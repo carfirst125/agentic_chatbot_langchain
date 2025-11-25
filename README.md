@@ -103,13 +103,13 @@ Prepare 3 bash/shell scripts:
 
 ### Scripts for build docker image and container test
 ```
-**01. Build docker**
+# 01. Build docker
 sh build_docker_image.sh
 
-**02. Delete docker image with name <none> reasonned by dupplicated image name.**
+# 02. Delete docker image with name <none> reasonned by dupplicated image name.
 sh delete_docker_image_name_none.sh
 
-03. Run docker image creating container
+# 03. Run docker image creating container
 sh run_docker_image.sh
 
 Script includes remove existed container and rebuilt new container for image.
@@ -119,7 +119,7 @@ Debug code in container
 2- open container terminal ==> check source code
                             |- rerun code in container --> view log
 
-04. Pull docker image from ACR hub to your local, and run that image.
+# 04. Pull docker image from ACR hub to your local, and run that image.
 sh run_docker_image_acr.sh
 
 ```
