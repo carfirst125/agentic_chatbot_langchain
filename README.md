@@ -69,29 +69,33 @@ Prepare 3 bash/shell scripts:
      Bạn có thể gặp lỗi (pylib không tương tích với python version hay platform, thiếu thư viện hay thư viện khác đôi chút với trên win)
 - 3- [.sh] Command to Run image create container (because image stored locally --> not need to pull images)
      ``` Potential Error: 
-	     container được built và chạy (run `docker ps -a`  sẽ thấy container với up to N seconds)
-	     nhưng bạn gọi API lại ko được, bị lỗi
-	 Reason: 
-		 uvicorn command in container not run with 0.0.0.0 (accepted all), or port is correct?
-     Debug: 
-	      Print container log: `docker logs agentic_chatbot_api`
-	      Open container terminal to code: 
+	container được built và chạy (run `docker ps -a`  sẽ thấy container với up to N seconds)
+	nhưng bạn gọi API lại ko được, bị lỗi
+	Reason: 
+		uvicorn command in container not run with 0.0.0.0 (accepted all), or port is correct?
+    Debug: 
+	    Print container log: `docker logs agentic_chatbot_api`
+	    Open container terminal to code: 
 		      + Run 
                 `bash docker exec -it agentic_chatbot_api bash --> Container Terminal >>
 		      + Bạn có thể install something in container 
 			    `apt update && apt install -y curl`
 		      + Sau đó, check curl bên trong container: 
-			    `curl http://localhost:8001`
+			    `curl http://localhost:8000`
 		      + Hay kiểm tra chạy lại lệnh uvicorn bên trong container:
-			      `uvicorn app.chatbot:app --host 0.0.0.0 --port 8001`
+			      `uvicorn app.chatbot:app --host 0.0.0.0 --port 8000`
 	         
-        Dùng cách trên để debug, tôi xuất log và thấy app tôi đang chạy embedding vector cho tài liệu. Lý do: đường dẫn tới file .faiss có sẵn bị sai. Tôi đã sửa lại đường dẫn, build lại docker image, run container lại và giờ tôi có thể gọi API.\
+        Dùng cách trên để debug, tôi xuất log và thấy app tôi đang chạy embedding vector cho tài liệu. 
+        Lý do: đường dẫn tới file .faiss có sẵn bị sai. 
+        Tôi đã sửa lại đường dẫn, build lại docker image, run container lại và giờ tôi có thể gọi API.\
     ```
-            
-   4- Bạn run 3 shell script.sh trên, khi run xong script thứ 3 deploy container thì bạn chạy
-   `docker ps -a` --> show all containers is running and container "up to 1 minutes ..." is running one.
-   Để biết chi tiết hơn docker đã copy gì vào container (copy app vào container như nào), bạn mở container terminal ~ bạn vào máy container --> bạn kiểm tra trong máy container nhé!
 
+   - 4- Bạn run 3 shell script.sh trên, khi run xong script thứ 3 deploy container thì bạn chạy
+```
+   `docker ps -a` --> show all containers is running and container "up to 1 minutes ..." is running one.
+
+   Để biết chi tiết hơn docker đã copy gì vào container (copy app vào container như nào), bạn mở container terminal ~ bạn vào máy container --> bạn kiểm tra trong máy container nhé!
+```
 	     
 ---
 # Work Package: Deployment (DevOpt = Repo + CICD Pipelines)
@@ -101,6 +105,7 @@ Prepare 3 bash/shell scripts:
 
 #### Sub-task 01 : Code preparation
 
+```
 agentic_chatbot_app
      |-app
         | - requirements.txt
@@ -112,8 +117,10 @@ agentic_chatbot_app
          |- azure-pipelines-stage1-infras.yml
          |- azure-pipelines-stage2-docker-image.yml
          |- azure-pipelines-stage3-container.yml
+```
 
 Code upload to repo includes three main things:
+
 - App code (app your deved above + requirements.txt)
 - docker (Dockerfile to build image)
 - pipelines (here I organize 3 pipelines, you can use just 1 or any depend on)  
@@ -121,7 +128,7 @@ Code upload to repo includes three main things:
 	  + CICD2 (pipelines-stage2-docker-image.yml): build docker image + up to ACR
 	  + CICD3 (pipelines-stage3-container.yml): pull docker image, run container ACA by terraform 
 
-Upload to Repo
+- Upload to Repo
 
 
 #########################################
