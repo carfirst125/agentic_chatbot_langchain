@@ -164,7 +164,9 @@ Build infras --> DONE
 CICD2 --> DONE
 
 - az login (wsl terminal)
+
 `az login --tenant YOUR_TENTANT_ID --use-device-code`
+
 Then copy link and past provided OTP code --> OK
 
 - Check image in ACR repository
