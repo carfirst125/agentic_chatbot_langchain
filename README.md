@@ -87,38 +87,40 @@ Prepare 3 bash/shell scripts:
 	         
         Dùng cách trên để debug, tôi xuất log và thấy app tôi đang chạy embedding vector cho tài liệu. 
         Lý do: đường dẫn tới file .faiss có sẵn bị sai. 
-        Tôi đã sửa lại đường dẫn, build lại docker image, run container lại và giờ tôi có thể gọi API.\
+        Đã sửa lại đường dẫn, build lại docker image, run container lại và giờ tôi có thể gọi API.
     ```
 
    - 4- Bạn run 3 shell script.sh trên, khi run xong script thứ 3 deploy container thì bạn chạy
 ```
-   `docker ps -a` --> show all containers is running and container "up to 1 minutes ..." is running one.
+   `docker ps -a` 
+   --> shows all containers status, content "up to 1 minutes ..." means RUNNING one.
 
-   Để biết chi tiết hơn docker đã copy gì vào container (copy app vào container như nào), bạn mở container terminal ~ bạn vào máy container --> bạn kiểm tra trong máy container nhé!
+   To details what inside docker container like how code is copied, 
+   just open container terminal ~ login to container pc 
+   --> now you can check any you need in runing container.
 ```
 
 
 ### Scripts for build docker image and container test
 ```
-### 01. Build docker
-
+**01. Build docker**
 sh build_docker_image.sh
 
-### 02. Delete docker image with name <none> reasonned by dupplicated image name.
-
+**02. Delete docker image with name <none> reasonned by dupplicated image name.**
 sh delete_docker_image_name_none.sh
 
-### 03. Run docker image creating container
-
+03. Run docker image creating container
 sh run_docker_image.sh
 
 Script includes remove existed container and rebuilt new container for image.
 
-### Debug code in container
-
+Debug code in container
 1- check container deployed : docker ps -a  ==> list of container, Up to x minutes... --> still listenning
 2- open container terminal ==> check source code
                             |- rerun code in container --> view log
+
+04. Pull docker image from ACR hub to your local, and run that image.
+sh run_docker_image_acr.sh
 
 ```
 
