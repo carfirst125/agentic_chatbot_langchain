@@ -39,10 +39,10 @@
  - Test Agent class in coverage of supporting tools such as RAG, computing exchange amount, computing saving amount, connecting DB and get data, etc.
  - Test single question, and conversation 
  - Test docker build image Test ACR repo image upload
- - 
-### Sub-Task 04: Integrating form final code
 
-- Integrate separate function dev into app system
+### Sub-Task 04: Final App code Integration
+
+- Module integration for final app system
 - Test call app api
 
 
@@ -96,7 +96,32 @@ Prepare 3 bash/shell scripts:
 
    Để biết chi tiết hơn docker đã copy gì vào container (copy app vào container như nào), bạn mở container terminal ~ bạn vào máy container --> bạn kiểm tra trong máy container nhé!
 ```
-	     
+
+
+### Scripts for build docker image and container test
+```
+### 01. Build docker
+
+sh build_docker_image.sh
+
+### 02. Delete docker image with name <none> reasonned by dupplicated image name.
+
+sh delete_docker_image_name_none.sh
+
+### 03. Run docker image creating container
+
+sh run_docker_image.sh
+
+Script includes remove existed container and rebuilt new container for image.
+
+### Debug code in container
+
+1- check container deployed : docker ps -a  ==> list of container, Up to x minutes... --> still listenning
+2- open container terminal ==> check source code
+                            |- rerun code in container --> view log
+
+```
+
 ---
 # Work Package: Deployment (DevOpt = Repo + CICD Pipelines)
 
@@ -221,29 +246,6 @@ Run url API request --> get response --> OK
 
 
 
-
-
-
-
-### 01. Build docker
-
-sh build_docker_image.sh
-
-### 02. Delete docker image with name <none> reasonned by dupplicated image name.
-
-sh delete_docker_image_name_none.sh
-
-### 03. Run docker image creating container
-
-sh run_docker_image.sh
-
-Script includes remove existed container and rebuilt new container for image.
-
-### Debug code in container
-
-1- check container deployed : docker ps -a  ==> list of container, Up to x minutes... --> still listenning
-2- open container terminal ==> check source code
-                            |- rerun code in container --> view log
 
 
 
