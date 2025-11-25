@@ -146,11 +146,16 @@ Pipelines need HW to run:
    1-Microsoft Host pool (Free but 60 mins timeout) 
    2-Selfhost pool (Free - Máy của bạn)
    3-Parralel Microsoft pool (40usd/sku)  
-                 
-Potential Issues:
-Khi chạy pipelines trên host này thì toàn bộ terraform daemon hay docker daemon phải có trên máy đó, kết nối internet đẩy đủ và Az DevOpt có quyền truy cập tới host.
+```
 
-Khi chạy có thể cập nhật ubuntu hoặc download phần mềm, cài package --> có thể bị lỗi lq tới CDN ở các vùng bị chặn bởi VN hay authen request từ VN --> cần đổi url default sang url nào ok.
+Potential Issues:
+```
+Khi chạy pipelines trên host này thì toàn bộ terraform daemon, hay docker daemon 
+phải có trên máy đó, kết nối internet đẩy đủ và Az DevOpt có quyền truy cập tới host.
+
+Khi chạy có thể cập nhật ubuntu hoặc download phần mềm, cài package 
+--> có thể bị lỗi lq tới CDN ở các vùng bị chặn bởi VN hay authen request từ VN 
+--> cần đổi url default sang url nào ok.
 ```
 
 #########################################
@@ -170,6 +175,7 @@ CICD2 --> DONE
 Then copy link and past provided OTP code --> OK
 
 - Check image in ACR repository
+```
 	- 1- Login
 	`az acr login --name acrngothanhnhan125`
 	- 2- Show tags of images
@@ -178,16 +184,20 @@ Then copy link and past provided OTP code --> OK
 	`docker pull acrngothanhnhan125.azurecr.io/agentic_chatbot_api:latest`
 	- 4- Get images information (size) 
 	`docker images acrngothanhnhan125.azurecr.io/agentic_chatbot_api`
+```
 
 - Check image in ACR at local:
+```
 `sh run_docker_image_acr.sh` --> run docker image pulled to local machine to test
 `python call_chatbot_api.py` --> to check Query API --> DONE
+```
 
 Potential Issue:
+```
 - build python venv get mismatch in python version --> add --no-deps
 - version not correct with platform (should test in local early)
 - authentication when push image to ACR, correct in .yml
-
+```
 #### Sub-task 03: Run/Debug/Fix/Rerun (CICD3) azure-pipelines-stage3-container.yml
 
 Deploy container for chatbot --> DONE
